@@ -1,0 +1,70 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+Se debe ejecutar el script \lstinline|add_user.sh|,
+en este ejeplo añadiremos al un usuario nombrado como
+\textit{usuario\_77}.
+
+\begin{lstlisting}
+./add_user.sh usuario_77
+\end{lstlisting}
+
+Si todo sale bien se le pedira la contraseña de UNIX y
+la de SAMBA (Usar la misma).
+\lstset{style=nonestyle}
+\begin{lstlisting}
+Añadiendo el usuario 'usuario_77' ...
+make: se entra en el directorio '/var/yp'
+make[1]: se entra en el directorio '/var/yp/srv.nis'
+Updating netid.byname...
+make[1]: se sale del directorio '/var/yp/srv.nis'
+make: se sale del directorio '/var/yp'
+Añadiendo el nuevo grupo 'usuario_77' (1010) ...
+make: se entra en el directorio '/var/yp'
+make[1]: se entra en el directorio '/var/yp/srv.nis'
+Updating group.byname...
+Updating group.bygid...
+Updating netid.byname...
+make[1]: se sale del directorio '/var/yp/srv.nis'
+make: se sale del directorio '/var/yp'
+Añadiendo el nuevo usuario 'usuario_77' (1010) con grupo 'usuario_77' ...
+make: se entra en el directorio '/var/yp'
+make[1]: se entra en el directorio '/var/yp/srv.nis'
+Updating passwd.byname...
+Updating passwd.byuid...
+Updating netid.byname...
+Updating shadow.byname...
+make[1]: se sale del directorio '/var/yp/srv.nis'
+make: se sale del directorio '/var/yp'
+Creando el directorio personal '/home/usuario_77' ...
+Copiando los ficheros desde '/etc/skel' ...
+Nueva contraseña:
+Vuelva a escribir la nueva contraseña:
+passwd: contraseña actualizada correctamente
+Cambiando la información de usuario para usuario_77
+Introduzca el nuevo valor, o pulse INTRO para usar el valor predeterminado
+        Nombre completo []: Usuario 77
+        Número de habitación []: 12b
+        Teléfono del trabajo []: 5567382132
+        Teléfono de casa []: 5536271232
+        Otro []:
+¿Es correcta la información? [S/n] S
+Ingresa la contraseña SAMBA del usuario
+New Password:
+Retype Password:
+User 'usuario_77' created successfully
+make[1]: se entra en el directorio '/var/yp/srv.nis'
+Updating passwd.byname...
+Updating passwd.byuid...
+Updating netid.byname...
+Updating shadow.byname...
+make[1]: se sale del directorio '/var/yp/srv.nis'
+\end{lstlisting}
+
+El contenido de \lstinline{add_user.sh} es el siguiente
+\lstset{style=mystyle}
+\lstinputlisting[language=bash,label={list:addusersh},caption=Contenido de add\_user.sh]{../../configs/add_user.sh}
+
+
+\end{document}

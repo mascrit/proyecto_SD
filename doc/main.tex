@@ -1,0 +1,46 @@
+\documentclass[letterpaper]{article}
+
+\input{./conf.tex}
+
+\begin{document}
+
+\input{./portada.tex}
+
+\tableofcontents{}
+
+\renewcommand{\lstlistlistingname}{Lista de \lstlistingname\@s}
+\lstlistoflistings{}
+\clearpage{}
+
+\section{Arquitectura}\label{sec:arq}
+\begin{figure}[h!]
+  \includegraphics[width=0.9\textwidth]{arquitectura}
+  \caption{Arquitectura de la red}\label{fig:arquitectura}
+\end{figure}
+
+\begin{figure}[h!]
+  \includegraphics[width=0.9\textwidth]{Diagrama_Shianty}
+  \caption{Diagrama cliente-servidor}\label{fig:dia_c_s}
+\end{figure}
+
+
+
+\section{Recursos}\label{sec:recursos}
+
+\subfile{contenido/material_utilizado.tex}
+
+\clearpage{}
+
+\section{Creación de Usuarios}\label{sec:cusuarios}
+
+\subfile{contenido/usuarios.tex}
+
+\clearpage{}
+
+\section{Clientes}\label{sec:clientes}
+
+\subfile{contenido/cliente.tex}
+
+
+
+\end{document}

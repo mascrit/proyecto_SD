@@ -1,0 +1,14 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+
+.auctex-auto/
+main.aux
+main.fdb_latexmk
+main.fls
+main.lol
+main.out
+main.pdf
+main.toc
