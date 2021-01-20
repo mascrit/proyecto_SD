@@ -34,15 +34,21 @@
 
 \definecolor{LightGray}{gray}{0.9}
 \definecolor{DarkGray}{gray}{0.1}
+\definecolor{Base03}{HTML}{f8f8f8}
 
 \usemintedstyle{emacs}
 
 
 
 \renewcommand{\listingscaption}{Script}
-\renewcommand\listoflistingscaption{Índice de \listingscaption 's}
-
-\graphicspath{{./img_common/}{../images/}}
+\renewcommand\listoflistingscaption{Índice de \listingscaption\@'s}
+\setminted[bash]{frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\scriptsize,linenos,bgcolor=Base03}
+\setminted[bat]{frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\scriptsize,linenos,bgcolor=Base03}
+\setminted[linux-config]{frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\scriptsize,linenos,bgcolor=Base03}
+\setminted[shell-session]{frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\scriptsize,linenos,bgcolor=Base03}
+\graphicspath{{./img_common}{../images}}
 \pagestyle{fancy}
 \fancyfoot[R]{\thepage}
-\fancyfoot[C]{\includegraphics[width=0.1\textwidth]{../img_common/inge_logo}}
+\fancyfoot[C]{\includegraphics[width=0.1\textwidth]{inge_logo}}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\rightmark}
