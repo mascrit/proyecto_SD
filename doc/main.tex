@@ -6,7 +6,18 @@
 
 \input{./portada.tex}
 
-\tableofcontents{}
+\addcontentsline{toc}{section}{Portada}
+\tableofcontents
+\addcontentsline{toc}{section}{Índice}
+
+\addcontentsline{toc}{section}{Índice de figuras}
+\listoffigures
+\addcontentsline{toc}{section}{Índice de códigos}
+\listoflistings
+
+
+
+\newpage
 
 % \lstlistoflistings{}
 \clearpage{}
@@ -39,12 +50,6 @@
 \section{Clientes}\label{sec:clientes}
 
 \subfile{contenido/cliente.tex}
-
-\newpage
-
-% \listoffigures\addcontentsline{toc}{section}{Índice de figuras}
-% \listoflistings\@
-% \addcontentsline{toc}{section}{Índice de códigos}
 
 
 \end{document}
