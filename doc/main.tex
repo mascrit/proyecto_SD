@@ -2,6 +2,10 @@
 
 \input{./conf.tex}
 
+
+\input{./glosarios.tex}
+\makeglossaries{}
+
 \begin{document}
 
 \input{./portada.tex}
@@ -50,6 +54,14 @@
 \section{Clientes}\label{sec:clientes}
 
 \subfile{contenido/cliente.tex}
+
+\addcontentsline{toc}{section}{Índice de figuras}
+\listoffigures
+\addcontentsline{toc}{section}{Índice de códigos}
+\listoflistings{}
+
+\printglossary{}
+\printglossary[type=\acronymtype]
 
 
 \end{document}
