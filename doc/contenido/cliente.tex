@@ -50,37 +50,37 @@
 \begin{minted}{shell-session}
 $ dnf -y install ypbind rpcbind oddjob-mkhomedir
 \end{minted}
-\end{listing}
+        \end{listing}
 
-  \item Configurar el dominio del NIS
+  \item Configurar el dominio del \acrshort{nis}
 
         Usar \texttt{ypdomainname} como usuario adiministrativo.
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ ypdomainname srv.world
 \end{minted}
-\end{listing}
+        \end{listing}
         Añadir el dominio a \texttt{/etc/sysconfig/network}
         \begin{listing}[H]
 \begin{minted}{bash}
 $ echo "NISDOMAIN=srv.world" >> /etc/sysconfig/network
 \end{minted}
-\label{list:sysnetwork}
-\caption{Modificación del archivo /etc/sysconfig/network}
-\end{listing}
-        Añadir el servidor al la configuracion de NIS \texttt{/etc/yp.conf}
+          \label{list:sysnetwork}
+          \caption{Modificación del archivo /etc/sysconfig/network}
+        \end{listing}
+        Añadir el servidor al la configuracion de \acrshort{nis} \texttt{/etc/yp.conf}
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # [domain (NIS domain) server (NIS server)]
 domain srv.nis server Node03.srv.nis
 \end{minted}
-\label{list:yp}
-\caption{Modificación del archivo /etc/yp.conf}
-\end{listing}
+          \label{list:yp}
+          \caption{Modificación del archivo /etc/yp.conf}
+        \end{listing}
 
   \item Configurar el metodo de autenticacion del cliente
 
-        Añadir NIS como metodo de autenticacion
+        Añadir \acrshort{nis} como metodo de autenticacion
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
@@ -113,82 +113,82 @@ Make sure that NIS service is configured and enabled. See NIS documentation for 
 \begin{minted}{shell-session}
 $ authselect enable-feature with-mkhomedir
 \end{minted}
-\end{listing}
+        \end{listing}
 
-  \item Habilitar nis en SELinux (o desactivar SELinux si no es indispensable).
+  \item Habilitar \acrshort{nis} en SELinux (o desactivar SELinux si no es indispensable).
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ setsebool -P nis_enabled on
 \end{minted}
-\end{listing}
+        \end{listing}
 
-  \item Habilitar el servicio en systemd
+  \item Habilitar el servicio en \Gls{systemd}
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ systemctl enable --now rpcbind ypbind nis-domainname oddjobd
 \end{minted}
-\end{listing}
+        \end{listing}
 
   \item Probar la correcta cofiguracion del cliente
 
-        Confirma si el enlazador tiene comunicacion con el servidor NIS
+        Confirma si el enlazador tiene comunicacion con el servidor \acrshort{nis}
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ ypwhich
 \end{minted}
-\end{listing}
+        \end{listing}
   \item Si todo sale bien debe aparecer el servidor en el dominio
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Node03.src.nis
 \end{minted}
-\end{listing}
-  \item Cambiar contraseña de NIS (Se proporcionara un
+        \end{listing}
+  \item Cambiar contraseña de \acrshort{nis} (Se proporcionara un
         script bash para automatizar este proceso)
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ yppasswd
 \end{minted}
-\end{listing}
+        \end{listing}
 
 \end{enumerate}
-
+\clearpage{}
 
 \paragraph{NFS}
 \begin{enumerate}
-  \item Instalar los paquetes necesarios para NFS
+  \item Instalar los paquetes necesarios para \Gls{nfs}
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ dnf -y install nfs-utils
 \end{minted}
-\end{listing}
-  \item Configurar el dominio del servidor NFS en el
+        \end{listing}
+  \item Configurar el dominio del servidor \Gls{nfs} en el
         archivo \texttt{/etc/idmapd.conf}
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # linea 5 donde esta el dominio por defecto poner el del servidor
 Domain = srv.nis
 \end{minted}
-\label{list:idmap}
-\caption{Modificación del archivo /etc/idmapd.conf}
-\end{listing}
+          \label{list:idmap}
+          \caption{Modificación del archivo /etc/idmapd.conf}
+        \end{listing}
 
-  \item Probar que hay acceso al servidor nfs
+  \item Probar que hay acceso al servidor \Gls{nfs}
 
-        Montar la carpeta del servidor NFS
+        Montar la carpeta del servidor \Gls{nfs}
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ mount -t nfs Node03.srv.nis:/home /home
 \end{minted}
-\end{listing}
+        \end{listing}
 
         Si todo sale bien correr el siguiente comando que mostara que
-        efectivamente esta operativa la particion del tipo nfs4
+        efectivamente esta operativa la particion del tipo \Gls{nfs}4
 
         \begin{listing}[H]
 \begin{minted}{linux-config}
@@ -196,9 +196,9 @@ df -hT /home
 S.ficheros           Tipo Tamaño Usados  Disp Uso% Montado en
 Node03.srv.nis:/home nfs4    19G   1.3G   17G   8% /home
 \end{minted}
-\end{listing}
+        \end{listing}
 
-  \item Añadir la particion al fstab, esto montara la carpeta una vez
+  \item Añadir la particion al \Gls{fstab}, esto montara la carpeta una vez
         que se inicia el sistema
 
         Modificar el archivo \texttt{/etc/fstab}
@@ -207,29 +207,30 @@ Node03.srv.nis:/home nfs4    19G   1.3G   17G   8% /home
 # Añadir al final del archivo
 Node03.srv.nis:/home/ /home               nfs     defaults        0 0
 \end{minted}
-\label{list:fstab}
-\caption{Modificación del archivo /etc/fstab}
-\end{listing}
+          \label{list:fstab}
+          \caption{Modificación del archivo /etc/fstab}
+        \end{listing}
 
   \item Añadir el montaje dinamico\footnote{En caso de una caida
         del servidor este volvera a montar cada vez que se
-        quiera acceder al directorio asignado al NFS}
+        quiera acceder al directorio asignado al \Gls{nfs}}
 
-        Instalar AutoFS
+        Instalar \Gls{autofs}
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ dnf -y install autoFS
 \end{minted}
-\end{listing}
-        Añadir la directiva de automontaje a la configuracion maestra de autoFS en el archivo \texttt{/etc/auto.master}
+        \end{listing}
+        Añadir la directiva de automontaje a la configuracion maestra de
+        \gls{autofs} en el archivo \texttt{/etc/auto.master}
 
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # Añadir al final
 /-    /etc/auto.mount
 \end{minted}
-\end{listing}
+        \end{listing}
 
         Crear la configuracion de automontaje \texttt{/etc/auto.mount}
 
@@ -239,14 +240,14 @@ $ dnf -y install autoFS
 
 /home   -fstype=nfs,rw  dlp.srv.world:/home
 \end{minted}
-\end{listing}
+        \end{listing}
 
-        Habilitar el servicio en systemd
+        Habilitar el servicio en \gls{systemd}
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ systemctl enable --now autofs
 \end{minted}
-\end{listing}
+        \end{listing}
 
 \end{enumerate}
 
@@ -312,19 +313,19 @@ $ systemctl enable --now autofs
   \item Reiniciar equipo
         \newpage{}
   \item Si todo sale bien debe poder iniciar sesion con los
-        usuarios creados en el servidor SAMBA
+        usuarios creados en el servidor \Gls{SAMBA}
         \begin{figure}[H]
           \centering
           \includegraphics[width=0.8\textwidth]{inicio_sesion}
           \caption{Captura de inicio de sesion}\label{fig:inicio_sesion}
         \end{figure}
         \newpage{}
-  \item La unidad Z con la carpeta home del usuario debe montarse al
-        inicio de cada sesion
+  \item La unidad \texttt{Z:} con la carpeta \texttt{home} del usuario debe
+        montarse al inicio de cada sesion
         \begin{figure}[H]
           \centering
           \includegraphics[width=0.8\textwidth]{samba_drive_z}
-          \caption{Unidad \textbf{Z} montada}\label{fig:samba_drive_z}
+          \caption{Unidad \textbf{Z:} montada}\label{fig:samba_drive_z}
         \end{figure}
 
 \end{itemize}

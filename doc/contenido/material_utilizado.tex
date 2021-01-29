@@ -95,10 +95,10 @@ search srv.nis
 
 \subsubsection{NIS}\label{sec:nis}
 
-NIS funciona para poder centralizar la autenticación de los clientes Linux.
+\acrshort{nis} funciona para poder centralizar la autenticación de los clientes Linux.
 
 \begin{enumerate}
-  \item Instalar NIS, en terminal con permisos administrativos:
+  \item Instalar \acrshort{nis}, en terminal con permisos administrativos:
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
@@ -175,7 +175,7 @@ Now you can run ypinit -s Node03.srv.nis on all slave server.
 \end{listing}
 
   \item Cada que se tenga  que añadir un nuevo usuario se
-        tiene que actualizar la base de datos de NIS\@
+        tiene que actualizar la base de datos de \acrshort{nis}\@
         (este ya esta incluido en el script \texttt{add\_user.sh}).
 
         Se ejecuta el siguiente comando dentro del directorio
@@ -191,7 +191,7 @@ $ make
 
 \subsubsection{NFS}\label{sec:nfs}
 
-NFS crea un sistema de archivos centralizados por redefined
+\Gls{nfs} crea un sistema de archivos centralizados por redefined
 \begin{enumerate}
   \item Instalar el servidor nfs
 
@@ -214,7 +214,7 @@ Domain = srv.nis
 \end{listing}
 
   \item Añadir la ruta de los directorios home que se van a
-        compartir por NFS, esto es en el archivo \texttt{/etc/exports}
+        compartir por \Gls{nfs}, esto es en el archivo \texttt{/etc/exports}
 
         \begin{listing}[H]
 \begin{minted}{linux-config}
@@ -228,7 +228,7 @@ Domain = srv.nis
           \item \texttt{/home} es la ruta donde se van a montar
                 los directorios personales de los clientes.
           \item \texttt{xx.xx.xx.xx/xx} Es la mascara del segmento que
-                puede acceder a estos directorios por NFS.\@
+                puede acceder a estos directorios por \Gls{nfs}.\@
           \item \texttt{(..*)} Son las opciones de exports.
         \end{itemize}
 
@@ -245,16 +245,16 @@ $ systemctl restart nfs-server
 
 \subsubsection{SAMBA AD DC}\label{sec:samba_addc}
 
-SAMBA es una implementación del protocolo smb, a partir de su
+\Gls{SAMBA} es una implementación del protocolo smb, a partir de su
 versión 4 añade capacidades para crear y gestionar un controlador
 de directorio activo (active directory) y kerberos, el cual es
-compatible con la autenticación de red por de windows. Active
-directory es una implementación del protocolo ldap y kerberos
+compatible con la autenticación de red por de windows. \textbf{Active
+directory} es una implementación del protocolo \Gls{ldap} y \Gls{kerberos}
 es un protocolo de autenticación.
 
 \begin{enumerate}
   \item Instalar el protocolo para la sincronización de la hora.
-        Es un requerimiento de kerberos para los miembros del dominio
+        Es un requerimiento de \Gls{kerberos} para los miembros del dominio
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
@@ -324,14 +324,14 @@ $ systemctl disable samba-ad-dc smbd nmbd winbind
 \end{listing}
 
         Se elimina o se respalda el archivo de configuración de
-        SAMBA por defecto
+        \Gls{SAMBA} por defecto
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ mv /etc/samba/smb.conf /etc/samba/smb.conf.org
 \end{minted}
 \end{listing}
 
-        Se inicia la creación del controlador de forma interactiva, dotándole de compatibilidad con extensiones NIS RFC2307.
+        Se inicia la creación del controlador de forma interactiva, dotándole de compatibilidad con extensiones \acrshort{nis} RFC2307.
 
         \begin{listing}[H]
 \begin{minted}{shell-session}
