@@ -38,9 +38,9 @@
 \begin{minted}{linux-config}
 192.168.100.119 Node03.srv.nis srv.nis Node03 srv
 \end{minted}
-\label{list:hosts}
-\caption{Modificación del archivo /etc/hosts}
-\end{listing}
+          \label{list:hosts}
+          \caption{Modificación del archivo /etc/hosts}
+        \end{listing}
 \end{enumerate}
 
 \paragraph{NIS}
@@ -104,7 +104,7 @@ The following nsswitch maps are overwritten by the profile:
 
 Make sure that NIS service is configured and enabled. See NIS documentation for more information.
 \end{minted}
-\end{listing}
+        \end{listing}
 
   \item Añadir la caracteristica para crear directorio de home al
         primer inicio de sesion
@@ -258,6 +258,7 @@ $ systemctl enable --now autofs
 
 \subsubsection{Windows}\label{sec:cliente_win}
 
+\begin{itemize}
 \item Añadir el DNS y asignar una ip estatica a la tarjeta de red en el administrador de dispositivos
 \item En servidor DNS poner la IP del servidor SAMBA AD DC
 \begin{figure}[H]
@@ -271,7 +272,7 @@ $ systemctl enable --now autofs
 \newpage{}
 \paragraph{SAMBA AD DC}\ \\Añadir cliente al demonio
 \begin{itemize}
-  \item Click derecho a equipo y \texttt{propiedades/configuracion avanzada/Nombre de equipo/ boton cambiar...}
+  \item Click derecho a equipo y \texttt{propiedades/configuracion avanzada/Nombre de equipo/ boton cambiar\ldots}
         \begin{figure}[H]
           \centering
           \includegraphics[width=0.8\textwidth]{config_cambiar}
@@ -301,10 +302,10 @@ $ systemctl enable --now autofs
 
 
         \begin{listing}[H]
-\inputminted{bat}{../configs/drive.bat}
-\caption{Contenido de drive.bat}
-\label{listing:adduser.sh}
-\end{listing}
+          \inputminted{bat}{../configs/drive.bat}
+          \caption{Contenido de drive.bat}
+          \label{listing:drive.sh}
+        \end{listing}
 
 
   \item Para adaptar a caso de uso diferente
