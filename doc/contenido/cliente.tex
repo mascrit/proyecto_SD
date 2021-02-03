@@ -46,7 +46,7 @@
 \paragraph{NIS}
 \begin{enumerate}
   \item Instalar los paquetes necesarios.
-        \begin{listing}
+        \begin{listing}[H]
 \begin{minted}{shell-session}
 $ dnf -y install ypbind rpcbind oddjob-mkhomedir
 \end{minted}
@@ -259,13 +259,13 @@ $ systemctl enable --now autofs
 \subsubsection{Windows}\label{sec:cliente_win}
 
 \begin{itemize}
-\item Añadir el DNS y asignar una ip estatica a la tarjeta de red en el administrador de dispositivos
-\item En servidor DNS poner la IP del servidor SAMBA AD DC
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.8\textwidth]{config_red_win}
-  \caption{Captura de administrador de dispositivos}\label{fig:confrwin}
-\end{figure}
+  \item Añadir el DNS y asignar una ip estatica a la tarjeta de red en el administrador de dispositivos
+  \item En servidor DNS poner la IP del servidor SAMBA AD DC
+        \begin{figure}[H]
+          \centering
+          \includegraphics[width=0.8\textwidth]{config_red_win}
+          \caption{Captura de administrador de dispositivos}\label{fig:confrwin}
+        \end{figure}
 
 \end{itemize}
 
