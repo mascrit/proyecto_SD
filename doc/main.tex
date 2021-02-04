@@ -16,31 +16,39 @@
 
 
 \twocolumn[
-\thispagestyle{empty}
-\pagestyle{empty}
+\begin{@twocolumnfalse}
 \tableofcontents
 \end{@twocolumnfalse}
 \bigskip{}]
 
 
 
+
+
+\twocolumn[
+\begin{@twocolumnfalse}
 \maketitle
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-  En el presente trabajo se implementa la sincronización de cuentas asi como
-  sus claves a trabes de una red de área locala distintas máquinas de
-  distintos sistemas operatívos.
+  En el presente trabajo se implementa la sincronización de cuentas así como
+  sus claves a través de una red de área local a distintas máquinas de
+  distintos sistemas operativos.
 \end{abstract}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Introducción}\label{sec:introduccion}
-En al presente se presenta la implementación de una distribución de información
-a varías maquinas que estén conectadas a una red mediante el uso de distintos
-protocolos de sincronización (implementado en la sección~\ref{sec:samba_addc})
-y distribución de información.
+En la presente se describe una serie de pasos para llevar a cabo la
+administración central de usuarios a un servidor basado en Linux. Existen
+varias herramientas para llevar a cabo esta tarea, para compartir archivos se
+utilizó \Gls{SAMBA} y \Gls{NIS} para montar los archivos del servidor a varios
+ordenadores conectados al servidor maestro. Para la autenticación se optó
+Active Directory y \Gls{kerberos} para tener compatibilidad tanto con sistemas
+basados en Linux y Windows.
 
+Estas herramientas son útiles ya que permiten a los hosts, independientemente
+su sistema operativo, autenticarse a un servidor basado en Linux. Es es
+una opción excelente en un entorno T.I. (tecnología de la información)
+heterogéneo con distintos sistemas operativos.
+\end{@twocolumnfalse}
+\bigskip{}]
 
 \section{Arquitectura}\label{sec:arq}
 \begin{figure}[h!]
@@ -52,30 +60,48 @@ y distribución de información.
   \caption{Diagrama cliente-servidor}\label{fig:dia_c_s}
 \end{figure}
 
+\cleardoublepage{}
 
 \section{Recursos}\label{sec:recursos}
 
 \subfile{contenido/material_utilizado.tex}
 
-\clearpage{}
+\cleardoublepage{}
 
 \section{Creación de Usuarios}\label{sec:cusuarios}
 
 \subfile{contenido/usuarios.tex}
 
-\clearpage{}
+\cleardoublepage{}
 
 \section{Clientes}\label{sec:clientes}
 
 \subfile{contenido/cliente.tex}
+\newpage{}
+\section{Conclusión}\label{sec:conclusion}
+Se utilizaron distintos protocolos para llevar a cabo la distribución
+de los archivos de los usuarios que se crean en el servidor
+maestro (\ref{sec:nis}), también en casos se implemento una manera para
+volver a reactivar la conexión servidor (para Linux) en caso de
+que este se encuentre
+desconectado por factores externos, esta esta descrita en la
+sección~\ref{sec:cliente_linux}.
+El uso de los protocolos descritos en el \hyperref[glo:glosario]{glosario}
+nos ayuda a crear nuestra red de usuarios sin tener que crear uno por uno
+en cada ordenador, al igual la persistencia de los datos de los usuarios cuando
+ellos cambian de ordenador, ya que gracias \Gls{SAMBA}, el directorio
+\texttt{/home} del usuario se monta en cada PC donde, para acceder a esta
+carpeta, debe ser el mismo usuario con su cuenta usando protocolos de
+autenticación como Active Directory.
 
-\newpage
+
+\vfill{}
 
 \addcontentsline{toc}{section}{Índice de figuras}
 \listoffigures
 \addcontentsline{toc}{section}{Índice de códigos}
 \listoflistings{}
-\printglossary{}
+\printglossary{}\label{glo:glosario}
 \printglossary[type=\acronymtype]
 
 \end{document}
