@@ -6,9 +6,10 @@
 \begin{table}[htbp]
   \centering
   \begin{tabular}{rl}
-    
+    \hline{}
     hostname:&Node02\\
     Sistema Operativo:&Centos 8\\
+    \hline{}
   \end{tabular}
 \end{table}
 
@@ -16,12 +17,13 @@
 \begin{table}[htbp]
   \centering
   \begin{tabular}{rl}
-    
+    \hline{}
     IP:&$192.168.100.28/24$\\
     Puerta de Enlace&$192.168.100.1$\\
     Broadcast:&$192.168.100.255$\\
     DNS:&$192.168.100.119\ 8.8.8.8$\\
     Dominio AC:&SRV\\
+    \hline{}
   \end{tabular}
 \end{table}
 
@@ -81,10 +83,9 @@ domain srv.nis server Node03.srv.nis
   \item Configurar el metodo de autenticacion del cliente
 
         Añadir \acrshort{nis} como metodo de autenticacion
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
-authselect select nis --force
+$ authselect select nis --force
 profile "nis" was selected.
 The following nsswitch maps are overwritten by the profile:
 - aliases
@@ -108,7 +109,6 @@ Make sure that NIS service is configured and enabled. See NIS documentation for 
 
   \item Añadir la caracteristica para crear directorio de home al
         primer inicio de sesion
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ authselect enable-feature with-mkhomedir
@@ -116,7 +116,6 @@ $ authselect enable-feature with-mkhomedir
         \end{listing}
 
   \item Habilitar \acrshort{nis} en SELinux (o desactivar SELinux si no es indispensable).
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ setsebool -P nis_enabled on
@@ -124,7 +123,6 @@ $ setsebool -P nis_enabled on
         \end{listing}
 
   \item Habilitar el servicio en \Gls{systemd}
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ systemctl enable --now rpcbind ypbind nis-domainname oddjobd
@@ -147,7 +145,6 @@ Node03.src.nis
         \end{listing}
   \item Cambiar contraseña de \acrshort{nis} (Se proporcionara un
         script bash para automatizar este proceso)
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ yppasswd
@@ -160,7 +157,6 @@ $ yppasswd
 \paragraph{NFS}
 \begin{enumerate}
   \item Instalar los paquetes necesarios para \Gls{nfs}
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ dnf -y install nfs-utils
@@ -180,7 +176,6 @@ Domain = srv.nis
   \item Probar que hay acceso al servidor \Gls{nfs}
 
         Montar la carpeta del servidor \Gls{nfs}
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ mount -t nfs Node03.srv.nis:/home /home
@@ -189,7 +184,6 @@ $ mount -t nfs Node03.srv.nis:/home /home
 
         Si todo sale bien correr el siguiente comando que mostara que
         efectivamente esta operativa la particion del tipo \Gls{nfs}4
-
         \begin{listing}[H]
 \begin{minted}{linux-config}
 df -hT /home
@@ -216,7 +210,6 @@ Node03.srv.nis:/home/ /home               nfs     defaults        0 0
         quiera acceder al directorio asignado al \Gls{nfs}}
 
         Instalar \Gls{autofs}
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ dnf -y install autoFS
@@ -233,7 +226,6 @@ $ dnf -y install autoFS
         \end{listing}
 
         Crear la configuracion de automontaje \texttt{/etc/auto.mount}
-
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # create new : [mount point] [option] [location]
@@ -263,7 +255,7 @@ $ systemctl enable --now autofs
   \item En servidor DNS poner la IP del servidor SAMBA AD DC
         \begin{figure}[H]
           \centering
-          \includegraphics[width=0.8\textwidth]{config_red_win}
+          \includegraphics[width=0.5\textwidth]{config_red_win}
           \caption{Captura de administrador de dispositivos}\label{fig:confrwin}
         \end{figure}
 
@@ -275,7 +267,7 @@ $ systemctl enable --now autofs
   \item Click derecho a equipo y \texttt{propiedades/configuracion avanzada/Nombre de equipo/ boton cambiar\ldots}
         \begin{figure}[H]
           \centering
-          \includegraphics[width=0.8\textwidth]{config_cambiar}
+          \includegraphics[width=0.5\textwidth]{config_cambiar}
           \caption{Configuracion del nombre del equipo}\label{fig:config_cambiar}
         \end{figure}
         \newpage{}
@@ -283,7 +275,7 @@ $ systemctl enable --now autofs
   \item En la seccion Miembro del seleccionar Dominio poner el dominio del servidor SAMBA que es \texttt{srv.nis}
         \begin{figure}[H]
           \centering
-          \includegraphics[width=0.8\textwidth]{config_cambiar_domi}
+          \includegraphics[width=0.5\textwidth]{config_cambiar_domi}
           \caption{Captura de asignacion de dominio}\label{fig:config_cambiar_domi}
         \end{figure}
         \newpage{}
@@ -294,7 +286,7 @@ $ systemctl enable --now autofs
         cada usuario.
         \begin{figure}[H]
           \centering
-          \includegraphics[width=0.8\textwidth]{menu_inicio}
+          \includegraphics[width=0.5\textwidth]{menu_inicio}
           \caption{Captura de menu de inicio}\label{fig:menu_inicio}
         \end{figure}
 
@@ -317,7 +309,7 @@ $ systemctl enable --now autofs
         usuarios creados en el servidor \Gls{SAMBA}
         \begin{figure}[H]
           \centering
-          \includegraphics[width=0.8\textwidth]{inicio_sesion}
+          \includegraphics[width=0.5\textwidth]{inicio_sesion}
           \caption{Captura de inicio de sesion}\label{fig:inicio_sesion}
         \end{figure}
         \newpage{}
@@ -325,7 +317,7 @@ $ systemctl enable --now autofs
         montarse al inicio de cada sesion
         \begin{figure}[H]
           \centering
-          \includegraphics[width=0.8\textwidth]{samba_drive_z}
+          \includegraphics[width=0.5\textwidth]{samba_drive_z}
           \caption{Unidad \textbf{Z:} montada}\label{fig:samba_drive_z}
         \end{figure}
 

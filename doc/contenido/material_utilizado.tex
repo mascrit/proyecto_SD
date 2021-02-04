@@ -2,40 +2,39 @@
 
 \begin{document}
 \subsection{Red Emulada}\label{sec:red_emu}
-
 \begin{table}[H]
   \centering
   \begin{tabular}{rl}
-    
+    \hline{}
     Segmento:&$192.168.100.0/24$\\
     Puerta de enlace:&$192.168.100.1$\\
     Broadcast:&$192.168.100.255$\\
     Dominio:&\texttt{srv.nis}\\
+    \hline{}
   \end{tabular}
 \end{table}
 
 \subsection{Servidor}\label{sec:servidor}
 
 \subsubsection{Servidor Linux (VM)}\label{sec:slvm}
-
-
 \begin{table}[H]
   \centering
   \begin{tabular}{rl}
-    
+    \hline{}
     Hostname: &Node03\\
     Sistema Operativo: & Debian 10 \textit{Buster}\\
+    \hline{}
   \end{tabular}
 \end{table}
-
+\vfill{}
 \subsubsection{Tarjeta de Red}\label{sec:tr}
-
 \begin{table}[H]
   \centering
   \begin{tabular}{rl}
-    
+    \hline{}
     IP:&$192.168.100.119/24$\\
     DNS:&$192.168.100.119\ 8.8.8.8$\\
+    \hline{}
   \end{tabular}
 \end{table}
 
@@ -51,7 +50,6 @@ ip estática:
         este nombre puede variar.
   \item Se tiene que modificar el archivo \texttt{/etc/network/interfaces}
         y añadir la siguiente configuración:
-
         \begin{listing}[H]
 \begin{minted}{linux-config}
 auto ens33
@@ -99,7 +97,6 @@ search srv.nis
 
 \begin{enumerate}
   \item Instalar \acrshort{nis}, en terminal con permisos administrativos:
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ apt -y install nis
@@ -108,7 +105,6 @@ $ apt -y install nis
 
         Al finalizar aparecerá una pantalla de configuración donde se
         añadirá el dominio del servidor
-
         \begin{listing}[H]
 \begin{minted}{linux-config}
 NIS domain:
@@ -122,7 +118,6 @@ srv.nis______
   \item Configurar como servidor maestro \acrshort{nis}
 
         Se tiene que modificar el archivo \texttt{/etc/default/nis}
-
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # Linea 6: Poner a NIS como servidor maestro
@@ -135,7 +130,6 @@ NISSERVER=master
         Adicionalmente en el mismo archivo de configuración, se puede
         configurar un rango de IPs que pueden hacer peticiones
         a este servicio
-
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # Si se deja asi se le dara acceso a todo el mundo
@@ -146,7 +140,6 @@ NISSERVER=master
 \end{listing}
 
         Reiniciamos el servicio nis para que se efectúen los cambios.
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ systemctl restart nis
@@ -157,7 +150,6 @@ $ systemctl restart nis
   \item Aplicar la configuración al servicio
 
         Ejecutamos el siguiente comando
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ /usr/lib/yp/ypinit -m
@@ -165,7 +157,6 @@ $ /usr/lib/yp/ypinit -m
 \end{listing}
 
         Si todo va bien se tiene que aparecer lo siguiente:
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Node03.srv.nis has been set up as a NIS master server.
@@ -180,7 +171,6 @@ Now you can run ypinit -s Node03.srv.nis on all slave server.
 
         Se ejecuta el siguiente comando dentro del directorio
         \texttt{/var/yp}
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ make
@@ -194,7 +184,6 @@ $ make
 \Gls{nfs} crea un sistema de archivos centralizados por redefined
 \begin{enumerate}
   \item Instalar el servidor nfs
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ apt -y install nfs-kernel-server
@@ -203,7 +192,6 @@ $ apt -y install nfs-kernel-server
 
   \item Configurar el dominio del servidor en el
         archivo \texttt{/etc/idmapd.conf}
-
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # Linea 6: Aqui se descomenta y se agrega el dominio
@@ -215,7 +203,6 @@ Domain = srv.nis
 
   \item Añadir la ruta de los directorios home que se van a
         compartir por \Gls{nfs}, esto es en el archivo \texttt{/etc/exports}
-
         \begin{listing}[H]
 \begin{minted}{linux-config}
 /home 192.168.100.0/24(rw,no_root_squash,no_subtree_check) 
@@ -234,7 +221,6 @@ Domain = srv.nis
 
 
   \item Reiniciar el servicio para ver reflejados los cambios.
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ systemctl restart nfs-server
@@ -255,7 +241,6 @@ es un protocolo de autenticación.
 \begin{enumerate}
   \item Instalar el protocolo \Gls{ntp} para la sincronización de la hora.
         Es un requerimiento de \Gls{kerberos} para los miembros del dominio
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ apt install ntp
@@ -264,11 +249,9 @@ $ apt install ntp
 
   \item Instalar los paquetes necesarios para el servidor de
         Samba 4 con AD DC
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
-$ apt install samba smbclient attr winbind libpam-winbind libnss-winbind\
-    libpam-krb5 krb5-config krb5-user
+$ apt install samba smbclient attr winbind libpam-winbind libnss-winbind libpam-krb5 krb5-config krb5-user
 \end{minted}
 \end{listing}
 
@@ -315,7 +298,6 @@ srv.nis_______
   \item Creación del controlador de dominio.
 
         Se detienen los servicios antes de configurar esta parte.
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ systemctl stop samba-ad-dc smbd nmbd winbind
@@ -332,7 +314,6 @@ $ mv /etc/samba/smb.conf /etc/samba/smb.conf.org
 \end{listing}
 
         Se inicia la creación del controlador de forma interactiva, dotándole de compatibilidad con extensiones \acrshort{nis} RFC2307.
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ samba-tool domain provision --use-rfc2307 --interactive
@@ -340,7 +321,6 @@ $ samba-tool domain provision --use-rfc2307 --interactive
 \end{listing}
 
         En la parte de Realm introducir el usado en este manual.
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Realm: srv.nis
@@ -348,7 +328,6 @@ Realm: srv.nis
 \end{listing}
 
         En domain dejar el que esta por defecto, solo pulsar enter
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Domain [SRV]:
@@ -356,7 +335,6 @@ Domain [SRV]:
 \end{listing}
 
         En Server Role dejar el que esta por defecto [dc]
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Server Role (dc, member, standalon) [dc]:
@@ -364,7 +342,6 @@ Server Role (dc, member, standalon) [dc]:
 \end{listing}
 
         DNS backend, dejar el que esta por defecto que es SAMBA\_INTERNAL
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 DNS backend (SAMBA_INTERNAL, BIND9_FLATFILE, BIND9_DLZ, NONE) [SAMBA_INTERNAL]:
@@ -372,7 +349,6 @@ DNS backend (SAMBA_INTERNAL, BIND9_FLATFILE, BIND9_DLZ, NONE) [SAMBA_INTERNAL]:
 \end{listing}
 
         DNS fowarder IP address. Dejar la IP del servidor que en este caso es 192.168.100.119
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 DNS forwarder IP address (write 'none' to disable forwarding) [127.0.0.1]: 192.168.100.119
@@ -380,7 +356,6 @@ DNS forwarder IP address (write 'none' to disable forwarding) [127.0.0.1]: 192.1
 \end{listing}
 
         Administrator password: Esta es la contraseña de administrador, poner una que sea mayor a 8 caracteres con una mayúscula y un dígito
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Administrator password:
@@ -389,7 +364,6 @@ Retype password:
 \end{listing}
 
         Si todo sale bien mostrara los datos con controlador de dominio
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Server Role:           active directory domain controller
@@ -401,7 +375,6 @@ DOMAIN SID:            S-1-5-21-3772837808-1505251784-1375148484
 \end{listing}
 
         Iniciar la familia de los demonios del samba-ad-dc
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ systemctl unmask samba-ad-dc
@@ -414,7 +387,6 @@ $ systemctl enable samba-ad-dc
   \item Probar la configuración
 
         Verificar el nivel de dominio
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ samba-tool domain level show
@@ -422,7 +394,6 @@ $ samba-tool domain level show
 \end{listing}
 
         Si todo sale bien debe mostrar lo siguiente
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Domain and forest function level for domain 'DC=srv,DC=nis'
@@ -435,7 +406,6 @@ Lowest function level of a DC: (Windows) 2008 R2
 
         Verificar el servidor de archivos. \texttt{netlogon}
         y \texttt{sysvol}
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ smbclient -L localhost -U%
@@ -443,7 +413,6 @@ $ smbclient -L localhost -U%
 \end{listing}
 
         Debe mostrar lo siguiente:
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
        Sharename       Type      Comment
@@ -468,7 +437,6 @@ Reconnecting with SMB1 for workgroup listing.
     		los workgroups existentes de otras maquinas Windows en la red.
 
         Verificar la autenticación usando el usuario de administrador del dominio.
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ smbclient //localhost/netlogon -UAdministrator -c 'ls'
@@ -476,7 +444,6 @@ $ smbclient //localhost/netlogon -UAdministrator -c 'ls'
 \end{listing}
 
         Si todo sale bien debe mostrar lo siguiente:
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 Enter SRV\Administrator's password:
@@ -500,8 +467,6 @@ $ host -t SRV _ldap._tcp.srv.nis
 \end{listing}
 
         SRV de kerberos usando UDP
-
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ host -t SRV _kerberos._udp.srv.nis
@@ -509,7 +474,6 @@ $ host -t SRV _kerberos._udp.srv.nis
 \end{listing}
 
         A del dominio
-
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ host -t A Node03.srv.nis
