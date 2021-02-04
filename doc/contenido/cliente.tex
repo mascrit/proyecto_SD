@@ -28,7 +28,7 @@
 \end{table}
 
 
-\subsection{Configuracion}\label{sec:cliente_conf}
+\subsection{Configuración}\label{sec:cliente_conf}
 
 \subsubsection{Linux}\label{sec:cliente_linux}
 
@@ -56,7 +56,7 @@ $ dnf -y install ypbind rpcbind oddjob-mkhomedir
 
   \item Configurar el dominio del \acrshort{nis}
 
-        Usar \texttt{ypdomainname} como usuario adiministrativo.
+        Usar \texttt{ypdomainname} como usuario administrativo.
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ ypdomainname srv.world
@@ -70,7 +70,7 @@ $ echo "NISDOMAIN=srv.world" >> /etc/sysconfig/network
           \label{list:sysnetwork}
           \caption{Modificación del archivo /etc/sysconfig/network}
         \end{listing}
-        Añadir el servidor al la configuracion de \acrshort{nis} \texttt{/etc/yp.conf}
+        Añadir el servidor al la configuración de \acrshort{nis} \texttt{/etc/yp.conf}
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # [domain (NIS domain) server (NIS server)]
@@ -80,9 +80,9 @@ domain srv.nis server Node03.srv.nis
           \caption{Modificación del archivo /etc/yp.conf}
         \end{listing}
 
-  \item Configurar el metodo de autenticacion del cliente
+  \item Configurar el método de autenticación del cliente
 
-        Añadir \acrshort{nis} como metodo de autenticacion
+        Añadir \acrshort{nis} como método de autenticación
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ authselect select nis --force
@@ -107,8 +107,8 @@ Make sure that NIS service is configured and enabled. See NIS documentation for 
 \end{minted}
         \end{listing}
 
-  \item Añadir la caracteristica para crear directorio de home al
-        primer inicio de sesion
+  \item Añadir la característica para crear directorio de home al
+        primer inicio de sesión
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ authselect enable-feature with-mkhomedir
@@ -129,9 +129,9 @@ $ systemctl enable --now rpcbind ypbind nis-domainname oddjobd
 \end{minted}
         \end{listing}
 
-  \item Probar la correcta cofiguracion del cliente
+  \item Probar la correcta configuración del cliente
 
-        Confirma si el enlazador tiene comunicacion con el servidor \acrshort{nis}
+        Confirma si el enlazador tiene comunicación con el servidor \acrshort{nis}
         \begin{listing}[H]
 \begin{minted}{shell-session}
 $ ypwhich
@@ -181,8 +181,8 @@ $ mount -t nfs Node03.srv.nis:/home /home
 \end{minted}
         \end{listing}
 
-        Si todo sale bien correr el siguiente comando que mostara que
-        efectivamente esta operativa la particion del tipo \Gls{nfs}4
+        Si todo sale bien correr el siguiente comando que mostrará que
+        efectivamente esta operativa la partición del tipo \Gls{nfs}4
         \begin{listing}[H]
 \begin{minted}{linux-config}
 df -hT /home
@@ -191,7 +191,7 @@ Node03.srv.nis:/home nfs4    19G   1.3G   17G   8% /home
 \end{minted}
         \end{listing}
 
-  \item Añadir la particion al \Gls{fstab}, esto montara la carpeta una vez
+  \item Añadir la partición al \Gls{fstab}, esto montara la carpeta una vez
         que se inicia el sistema
 
         Modificar el archivo \texttt{/etc/fstab}
@@ -204,8 +204,8 @@ Node03.srv.nis:/home/ /home               nfs     defaults        0 0
           \caption{Modificación del archivo /etc/fstab}
         \end{listing}
 
-  \item Añadir el montaje dinamico\footnote{En caso de una caida
-        del servidor este volvera a montar cada vez que se
+  \item Añadir el montaje dinámico\footnote{En caso de una caída
+        del servidor este volverá a montar cada vez que se
         quiera acceder al directorio asignado al \Gls{nfs}}
 
         Instalar \Gls{autofs}
@@ -214,7 +214,7 @@ Node03.srv.nis:/home/ /home               nfs     defaults        0 0
 $ dnf -y install autofs
 \end{minted}
         \end{listing}
-        Añadir la directiva de automontaje a la configuracion maestra de
+        Añadir la directiva de automontaje a la configuración maestra de
         \gls{autofs} en el archivo \texttt{/etc/auto.master}
 
         \begin{listing}[H]
@@ -224,7 +224,7 @@ $ dnf -y install autofs
 \end{minted}
         \end{listing}
 
-        Crear la configuracion de automontaje \texttt{/etc/auto.mount}
+        Crear la configuración de automontaje \texttt{/etc/auto.mount}
         \begin{listing}[H]
 \begin{minted}{linux-config}
 # create new : [mount point] [option] [location]
@@ -250,7 +250,7 @@ $ systemctl enable --now autofs
 \subsubsection{Windows}\label{sec:cliente_win}
 
 \begin{itemize}
-  \item Añadir el DNS y asignar una ip estatica a la tarjeta de red en el administrador de dispositivos
+  \item Añadir el DNS y asignar una ip estática a la tarjeta de red en el administrador de dispositivos
   \item En servidor DNS poner la IP del servidor SAMBA AD DC
         \begin{figure}[H]
           \centering
@@ -261,33 +261,33 @@ $ systemctl enable --now autofs
 \end{itemize}
 
 \paragraph{SAMBA AD DC}
-
+\ \\
 Añadir cliente al demonio
 \begin{itemize}
-  \item Click derecho a equipo y \texttt{propiedades/configuracion avanzada/Nombre de equipo/ boton cambiar\ldots}
+  \item Click derecho a equipo y \texttt{propiedades/configuración avanzada/Nombre de equipo/ botón cambiar\ldots}
         \begin{figure}[H]
           \centering
           \includegraphics[width=0.5\textwidth]{config_cambiar}
-          \caption{Configuracion del nombre del equipo}\label{fig:config_cambiar}
+          \caption{Configuración del nombre del equipo}\label{fig:config_cambiar}
         \end{figure}
         \newpage{}
 
-  \item En la seccion Miembro del seleccionar Dominio poner el dominio del servidor SAMBA que es \texttt{srv.nis}
+  \item En la sección Miembro del seleccionar Dominio poner el dominio del servidor \Gls{SAMBA} que es \texttt{srv.nis}
         \begin{figure}[H]
           \centering
           \includegraphics[width=0.5\textwidth]{config_cambiar_domi}
-          \caption{Captura de asignacion de dominio}\label{fig:config_cambiar_domi}
+          \caption{Captura de asignación de dominio}\label{fig:config_cambiar_domi}
         \end{figure}
         \newpage{}
-  \item Si sale un dialogo de inicio de sesion usar el usuario ``Administrator''
-        y poner la contraseña proporcionada en la configuracion
+  \item Si sale un dialogo de inicio de sesión usar el usuario ``Administrator''
+        y poner la contraseña proporcionada en la configuración
   \item Añadir el script \texttt{drive.bat} a la carpeta de programas
-        de inicio para automontar la unidad \texttt{Z} al inicio de sesion de
+        de inicio para automontar la unidad \texttt{Z} al inicio de sesión de
         cada usuario.
         \begin{figure}[H]
           \centering
           \includegraphics[width=0.5\textwidth]{menu_inicio}
-          \caption{Captura de menu de inicio}\label{fig:menu_inicio}
+          \caption{Captura de menú de inicio}\label{fig:menu_inicio}
         \end{figure}
 
         el contenido de este \texttt{drive.bat} es el siguiente:
@@ -305,16 +305,16 @@ Añadir cliente al demonio
         correspondiente.
   \item Reiniciar equipo
         \newpage{}
-  \item Si todo sale bien debe poder iniciar sesion con los
+  \item Si todo sale bien debe poder iniciar sesión con los
         usuarios creados en el servidor \Gls{SAMBA}
         \begin{figure}[H]
           \centering
           \includegraphics[width=0.5\textwidth]{inicio_sesion}
-          \caption{Captura de inicio de sesion}\label{fig:inicio_sesion}
+          \caption{Captura de inicio de sesión}\label{fig:inicio_sesion}
         \end{figure}
-        \newpage{}
+
   \item La unidad \texttt{Z:} con la carpeta \texttt{home} del usuario debe
-        montarse al inicio de cada sesion
+        montarse al inicio de cada sesión
         \begin{figure}[H]
           \centering
           \includegraphics[width=0.5\textwidth]{samba_drive_z}
