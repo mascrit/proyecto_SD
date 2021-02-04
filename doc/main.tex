@@ -1,4 +1,5 @@
-\documentclass[letterpaper]{article}
+% \documentclass[letterpaper]{article}
+\documentclass[journal]{IEEEtran}
 
 \input{./conf.tex}
 
@@ -8,15 +9,31 @@
 
 \begin{document}
 
+\markboth{04 de febrero de 2020}
+
 \input{./portada.tex}
 
-\addcontentsline{toc}{section}{Portada}
+
+
+\twocolumn[
+\thispagestyle{empty}
+\pagestyle{empty}
 \tableofcontents
-\addcontentsline{toc}{section}{Índice}
+\end{@twocolumnfalse}
+\bigskip{}]
 
 
-\newpage
 
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+  En el presente trabajo se implementa la sincronización de cuentas asi como
+  sus claves a trabes de una red de área locala distintas máquinas de
+  distintos sistemas operatívos.
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introducción}\label{sec:introduccion}
 En al presente se presenta la implementación de una distribución de información
@@ -27,15 +44,13 @@ y distribución de información.
 
 \section{Arquitectura}\label{sec:arq}
 \begin{figure}[h!]
-  \includegraphics[width=0.9\textwidth]{arquitectura}
+  \includegraphics[width=0.5\textwidth]{arquitectura}
   \caption{Arquitectura de la red}\label{fig:arquitectura}
 \end{figure}
-
 \begin{figure}[h!]
-  \includegraphics[width=0.9\textwidth]{Diagrama_Shianty}
+  \includegraphics[width=0.5\textwidth]{Diagrama_Shianty}
   \caption{Diagrama cliente-servidor}\label{fig:dia_c_s}
 \end{figure}
-
 
 
 \section{Recursos}\label{sec:recursos}
@@ -60,9 +75,7 @@ y distribución de información.
 \listoffigures
 \addcontentsline{toc}{section}{Índice de códigos}
 \listoflistings{}
-\newpage{}
 \printglossary{}
 \printglossary[type=\acronymtype]
-
 
 \end{document}
