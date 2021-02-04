@@ -152,7 +152,6 @@ $ yppasswd
         \end{listing}
 
 \end{enumerate}
-\clearpage{}
 
 \paragraph{NFS}
 \begin{enumerate}
@@ -212,7 +211,7 @@ Node03.srv.nis:/home/ /home               nfs     defaults        0 0
         Instalar \Gls{autofs}
         \begin{listing}[H]
 \begin{minted}{shell-session}
-$ dnf -y install autoFS
+$ dnf -y install autofs
 \end{minted}
         \end{listing}
         Añadir la directiva de automontaje a la configuracion maestra de
@@ -261,8 +260,9 @@ $ systemctl enable --now autofs
 
 \end{itemize}
 
-\newpage{}
-\paragraph{SAMBA AD DC}\ \\Añadir cliente al demonio
+\paragraph{SAMBA AD DC}
+
+Añadir cliente al demonio
 \begin{itemize}
   \item Click derecho a equipo y \texttt{propiedades/configuracion avanzada/Nombre de equipo/ boton cambiar\ldots}
         \begin{figure}[H]
